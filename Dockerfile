@@ -33,9 +33,10 @@ RUN cd ~ && \
     git clone -b 'v19.4' --single-branch https://github.com/davisking/dlib.git dlib/ 
     
 # Copy updated makefile
-COPY CMakeLists.txt dlib/tools/python/CMakeLists.txt
+COPY CMakeLists.txt ~/dlib/tools/python/CMakeLists.txt
     
-RUN cd  dlib/ && \
+RUN cd ~ && \
+    cd dlib/ && \
     python3 setup.py install 
     #--yes USE_AVX_INSTRUCTIONS
 

@@ -30,9 +30,14 @@ RUN apt-get -y update && \
 # Install DLIB
 RUN cd ~ && \
     mkdir -p dlib && \
-    git clone -b 'v19.4' --single-branch https://github.com/davisking/dlib.git dlib/ && \
-    cd  dlib/ && \
-    python3 setup.py install --yes USE_AVX_INSTRUCTIONS
+    git clone -b 'v19.4' --single-branch https://github.com/davisking/dlib.git dlib/ 
+    
+# Copy updated makefile
+COPY CMakeLists.txt dlib/tools/python/CMakeLists.txt
+    
+RUN cd  dlib/ && \
+    python3 setup.py install 
+    #--yes USE_AVX_INSTRUCTIONS
 
 
 # Install Flask
@@ -55,5 +60,5 @@ COPY facerec_service.py /root/facerec_service.py
 
 
 # Start the web service
-CMD cd /root/ && \
-    python3 facerec_service.py
+#CMD cd /root/ && \
+#    python3 facerec_service.py
